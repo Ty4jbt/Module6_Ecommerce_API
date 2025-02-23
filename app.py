@@ -7,6 +7,7 @@ from flask_marshmallow import Marshmallow
 from marshmallow import fields, ValidationError
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from flask_bcrypt import Bcrypt
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:Full-Stack-dev97@localhost/e_commerce_db'
@@ -14,6 +15,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:Full-Stack-
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 ma = Marshmallow(app)
+CORS(app)
 
 class CustomerSchema(ma.SQLAlchemyAutoSchema):
     name = fields.String(required=True)
