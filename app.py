@@ -219,15 +219,22 @@ def add_order():
     order_data = request.json
     product_list = []
 
-    for product_id in order_data['products']:
+    for product_item in order_data['products']:
+        product_id = product_item['product_id']
         product = Product.query.get_or_404(product_id)
+        
         product_list.append({
             'id': product.id,
             'name': product.name,
-            'price': product.price
+            'price': product.price,
+            'quantity': product_item['quantity']
         })
 
-    new_order = Order(order_date=order_data['order_date'], customer_id=order_data['customer_id'], product_list=product_list)
+    new_order = Order(
+        order_date=order_data['orderDate'],
+        customer_id=order_data['customerId'],
+        product_list=product_list
+    )
 
     db.session.add(new_order)
     db.session.commit()
